@@ -1,0 +1,56 @@
+{% extends 'upload.html' %}
+{% set active_page = 'upload_image' %}
+{% block title %}Add new image - {% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-lg-7 offset-lg-2 my-5">
+    <h1>Add new image</h1><hr>
+	  <div class="container">
+
+<h2>Select a file to upload</h2>
+<p>
+	{% with messages = get_flashed_messages() %}
+	  {% if messages %}
+		<ul>
+		{% for message in messages %}
+		  <li>{{ message }}</li>
+		{% endfor %}
+		</ul>
+	  {% endif %}
+	{% endwith %}
+</p>
+{% if filename %}
+	<div>
+		<img style="max-height:250px;max-width:250px;height:auto;width:auto;" src="{{ url_for('display_image', filename=filename) }}">
+	</div>
+{% endif %}
+	<div>
+
+<form method="post" action="/" enctype="multipart/form-data">
+    <dl>
+		<p>
+			<input type="file" name="file" autocomplete="off" required>
+		</p>
+			<label for="Name">Name:</label>
+			<input type="text"  name="Name" autocomplete="off" class="form-control" required>
+			<label for="Photographer">Photographer:</label>
+			<input type="text"  name="Photographer" autocomplete="off"  class="form-control" required>
+			<label for="Exhibition">Exhibition:</label>
+			<input type="text"  name="Exhibition" autocomplete="off"  class="form-control" required>
+			<label for="Country">Country:</label>
+			<input type="text"  name="Country" autocomplete="off" class="form-control"  required>
+			<label for="Style">Style:</label>
+			<input type="text"  name="Style" autocomplete="off"  class="form-control" required>
+			<label for="Year">Year:</label>
+			<input type="number"  name="Year" autocomplete="off"  class="form-control" required>
+    </dl>
+    <p>
+		<input type="submit" value="Submit">
+	</p>
+</form>
+	</div>
+
+ </div>
+</div>
+{% endblock %}

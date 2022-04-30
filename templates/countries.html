@@ -1,0 +1,51 @@
+{% extends 'upload.html' %}
+{% set active_page = 'country_json_page' %}
+{% block title %}Get countries details - {% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-lg-7 offset-lg-2 my-5">
+    <h1>Get countries details</h1><hr>
+	  <div class="container">
+
+<h2>Select an existing country from DB</h2>
+<p>
+	{% with messages = get_flashed_messages() %}
+	  {% if messages %}
+		<ul>
+		{% for message in messages %}
+		  <li>{{ message }}</li>
+		{% endfor %}
+		</ul>
+	  {% endif %}
+	{% endwith %}
+</p>
+{% if filename %}
+	<div>
+countryyyyyyyy
+	</div>
+{% endif %}
+	<div>
+
+<form method="post" action="/countries" enctype="multipart/form-data">
+    <dl>
+		<p>
+			<label for="Country">Country:</label>
+		
+		<select name= Country method="GET" action="/">
+ 		</p>
+    {% for x in countries_list %}
+    <option value= "{{x}}" SELECTED>{{x}}</option>"
+    {% endfor %}
+</select>
+
+  </dl>
+    <p>
+		<input type="submit" value="Go">
+	</p>
+</form>
+	</div>
+
+ </div>
+</div>
+{% endblock %}

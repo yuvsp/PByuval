@@ -1,0 +1,51 @@
+{% extends 'upload.html' %}
+{% set active_page = 'exhibition_images' %}
+{% block title %}Get exhibition images - {% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-lg-7 offset-lg-2 my-5">
+    <h1>Get exhibition images</h1><hr>
+	  <div class="container">
+
+<h2>Select an existing exhibition from DB</h2>
+<p>
+	{% with messages = get_flashed_messages() %}
+	  {% if messages %}
+		<ul>
+		{% for message in messages %}
+		  <li>{{ message }}</li>
+		{% endfor %}
+		</ul>
+	  {% endif %}
+	{% endwith %}
+</p>
+{% if filename %}
+	<div>
+		<img src="{{ url_for('display_image', filename=filename) }}">
+	</div>
+{% endif %}
+	<div>
+
+<form method="post" action="/exhibitions" enctype="multipart/form-data">
+    <dl>
+		<p>
+			<label for="Exhibition">Exhibition:</label>
+		
+		<select name= Exhibition method="GET" action="/">
+ 		</p>
+    {% for x in exhibitions_list %}
+    <option value= "{{x}}" SELECTED>{{x}}</option>"
+    {% endfor %}
+</select>
+
+  </dl>
+    <p>
+		<input type="submit" value="Go">
+	</p>
+</form>
+	</div>
+
+ </div>
+</div>
+{% endblock %}

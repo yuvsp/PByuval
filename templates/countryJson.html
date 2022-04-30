@@ -1,0 +1,28 @@
+{% extends 'upload.html' %}
+{% set active_page = 'country_json_page____' %}
+{% block title %}Get countries details - {% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-lg-7 offset-lg-2 my-5">
+    <h1>Country {{Country}} images details</h1><hr>
+	  <div class="container">
+
+<p>
+	{% with messages = get_flashed_messages() %}
+	  {% if messages %}
+		<ul>
+		{% for message in messages %}
+		  <li>{{ message }}</li>
+		{% endfor %}
+		</ul>
+	  {% endif %}
+	{% endwith %}
+</p>
+	<div>
+	{{country_json}}
+	</div>
+
+ </div>
+</div>
+{% endblock %}
