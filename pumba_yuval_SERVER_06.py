@@ -13,8 +13,7 @@ import os
 now = datetime.now()
 print('Server Started')
 
-
-
+# initialize db and tables
 def init_db():
     try:
         conn = psycopg2.connect(
@@ -63,15 +62,8 @@ conn = psycopg2.connect(
     password="postgres")
 cur = conn.cursor()
 
-consumer = KafkaConsumer(
-    'img_topic',
-    bootstrap_servers=['localhost:9092'],
-    auto_offset_reset='earliest',
-    enable_auto_commit=True,
-    group_id='my-group',
-    value_deserializer=lambda x: loads(x.decode('utf-8')))
 
-
+# Image processing
 def process_image(path):
     try:
         file = path
@@ -100,14 +92,19 @@ def process_image(path):
 
         new_img.show()
         new_img.save(path)
-        print("okay")
     except:
         print("oy")
 
+# Kafka consumer
+consumer = KafkaConsumer(
+    'img_topic',
+    bootstrap_servers=['localhost:9092'],
+    auto_offset_reset='earliest',
+    enable_auto_commit=True,
+    group_id='my-group',
+    value_deserializer=lambda x: loads(x.decode('utf-8')))
 
-# In[ ]:
-
-
+# Kafka listener
 for message in consumer:
     message = message.value
     query = 'insert into pg_images ' + str(tuple(message.keys())).replace('\'', '\"') + ' values ' + str(

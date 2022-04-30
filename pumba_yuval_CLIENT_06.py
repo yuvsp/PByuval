@@ -5,14 +5,11 @@
 
 
 import os
-import urllib.request
 from flask import Flask, flash, request, redirect, url_for, render_template, jsonify
 from werkzeug.utils import secure_filename
-from time import sleep
 import json
 from json import dumps
 from kafka import KafkaProducer
-from datetime import datetime
 import time
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
@@ -20,6 +17,7 @@ from wtforms.validators import DataRequired, Length
 import psycopg2
 from psycopg2.extras import RealDictCursor
 
+# Setting Flask and configs
 app = Flask(__name__)
 app.secret_key = "secret key"
 UPLOAD_FOLDER = 'static/uploads/'
@@ -119,7 +117,7 @@ def get_country_json(country):
     except:
         return ''
 
-
+# Flask routing
 @app.route('/')
 def upload_form():
     return render_template('baseUpload.html')
@@ -139,7 +137,7 @@ def upload_image():
         Disc_location = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(Disc_location)
         fileDir = os.path.dirname(os.path.realpath('__file__'))
-        fullpath = os.path.join(fileDir, Disc_location)
+        #fullpath = os.path.join(fileDir, Disc_location)
         data = request.form.to_dict()
         data['Disc_location'] = Disc_location
         country = data['Country']
